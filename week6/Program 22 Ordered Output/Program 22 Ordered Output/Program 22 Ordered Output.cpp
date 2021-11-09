@@ -20,11 +20,14 @@ int main()
 		cout << "enter a number: " << endl;
 		cin >> numbers[i];
 	}
-	/*sort(numbers, numbers + 5);
+	sort(numbers, numbers + 5);
 	cout << "your numbers sorted smallest to largest: " << endl;
-	print(numbers);*/
-	sort(numbers +5, numbers);
-	cout << "your numbers largest to smallest" << endl;
 	print(numbers);
-	/*cout << "the largest number you've entered: " <<numbers[0]<< endl;*/
+	cout << "your numbers largest to smallest" << endl;
+	for (int j = 4; j > -1; j--)
+	{
+		cout << numbers[j]<<endl;
+	}
+	cout << "the largest number you've entered: " <<numbers[0]<<"the position of this number is: "<<0<< endl;
+	
 }
