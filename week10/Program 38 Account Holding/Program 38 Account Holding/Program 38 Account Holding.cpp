@@ -111,7 +111,7 @@ int main()
 		}
 		else
 		{
-
+			cout << "you have entered an invalid number" << endl;
 		}
 	}
 }
