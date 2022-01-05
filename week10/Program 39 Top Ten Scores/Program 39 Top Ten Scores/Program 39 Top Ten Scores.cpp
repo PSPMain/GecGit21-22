@@ -12,6 +12,23 @@ struct topTen
     string name;
 };
 
+void sort2()
+{
+    topTen scores;
+    vector<int> scoreVector(10);
+    vector<string> nameVector(10);
+    vector <int>::iterator it;
+    vector <string>::iterator it2;
+
+    it = scoreVector.begin();
+    it2 = nameVector.begin();
+    cout << "enter a score and a name" << endl;
+    cin >> scores.score;
+    cin >> scores.name;
+
+    
+}
+
 void sort()
 {
     topTen scores;
@@ -19,11 +36,12 @@ void sort()
     vector<string> nameVector;
     vector <int>::iterator it;
     vector <string>::iterator it2;
+    it = scoreVector.begin();
+    it2 = nameVector.begin();
     cout << "enter a score and a name" << endl;
     cin >> scores.score;
     cin >> scores.name;
-    it = scoreVector.begin();
-    it2 = nameVector.begin();
+    
     while (scoreVector.size() <= 10)
     {
         if (!scoreVector.empty())
@@ -80,11 +98,47 @@ int main()
     if (userChoice == 1)
     {
 
-        cout << "enter a score and a name: " << endl;
+        cout << "enter a score and a name" << endl;
         cin >> scores.score;
         cin >> scores.name;
-        scoreVector.insert(it, scores.score);
-        nameVector.insert(it2, scores.name);
+
+        while (scoreVector.size() <= 10)
+        {
+            if (!scoreVector.empty())
+            {
+                for (int i = 0; i < scoreVector.size(); i++)
+                {
+
+
+                    if (scores.score > scoreVector[i])
+                    {
+
+                    }
+                    else if (scores.score < scoreVector[i])
+                    {
+                        scoreVector.insert(it, scores.score);
+                        nameVector.insert(it2, scores.name);
+                        continue;
+                    }
+                    it=scoreVector.begin()+i;
+                    it2=nameVector.begin()+i;
+
+
+                }
+            }
+            else
+            {
+                scoreVector.push_back(scores.score);
+                nameVector.push_back(scores.name);
+            }
+            for (int i = 0; i < scoreVector.size(); i++)
+            {
+                cout << scoreVector[i] << endl << nameVector[i] << endl;
+            }
+            continue;
+        }
+        scoreVector.resize(10);
+        nameVector.resize(10);
     }
     else if (userChoice == 2)
     {
