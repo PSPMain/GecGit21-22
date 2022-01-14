@@ -5,7 +5,7 @@ void inputDetails(int* n1, int* n2)
 {
 	int num1 = 0;
 	int num2 = 0;
-	cout << "please enter to numbers" << endl;
+	cout << "please enter two numbers" << endl;
 	cin >> num1;
 	cin >> num2;
 	*n1 = num1;
