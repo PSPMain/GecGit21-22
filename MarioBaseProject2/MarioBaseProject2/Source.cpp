@@ -26,6 +26,7 @@ int main(int argc, char* args[])
 		//game loop
 		while (!quit)
 		{
+			Render();
 			quit = update();
 		}
 	}
@@ -55,12 +56,18 @@ bool InitSDL()
 				cout << "SDL_Image could not initialise. ERROR: " << IMG_GetError();
 				return false;
 			}
+			g_texture = LoadTextureFromFile("Images/test.bmp");
+			if (g_texture == nullptr)
+			{
+				return false;
+			}
+		}
 		else
 		{
 			cout << "Renderer could not initialise. ERROR: " << SDL_GetError();
 			return false;
 		}
-		}
+	
 		//did the window get created?
 		if (g_window == nullptr)
 		{
@@ -73,15 +80,21 @@ bool InitSDL()
 			return true;
 		}
 	}
-	SDL_DestroyWindow(g_window);
-	g_window = nullptr;
-	IMG_Quit();
-	SDL_Quit();
+	
 }
 
 void CloseSDl()
 {
-
+	SDL_DestroyWindow(g_window);
+	g_window = nullptr;
+	
+	//clear the texture
+	FreeTexture();
+	//release the renderer
+	SDL_DestroyRenderer(g_renderer);
+	g_renderer = nullptr;
+	IMG_Quit();
+	SDL_Quit();
 }
 bool update()
 {
@@ -99,7 +112,8 @@ bool update()
 	}
 	return false;
 }
-void render()
+
+void Render()
 {
 	//clear the screen
 	SDL_SetRenderDrawColor(g_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -121,6 +135,26 @@ SDL_Texture* LoadTextureFromFile(string path)
 	SDL_Surface* p_surface = IMG_Load(path.c_str());
 	if (p_surface != nullptr)
 	{
-		 
+		p_texture = SDL_CreateTextureFromSurface(g_renderer, p_surface);
+		if(p_texture==nullptr)
+		{
+			cout << "Unable to create texture from surface. Error: " << SDL_GetError();
+		}
+		SDL_FreeSurface(p_surface);
+	}
+	else
+	{
+		cout << "Unable to create texture from surface. Error: " << IMG_GetError();
+	}
+	return p_texture;
+}
+
+void FreeTexture()
+{
+	//check if texture exists before removing it
+	if (g_texture != nullptr)
+	{
+		SDL_DestroyTexture(g_texture);
+		g_texture = nullptr;
 	}
 }
